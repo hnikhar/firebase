@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "240353380355",
+    "project_id": "thrifthub-db171",
+    "storage_bucket": "thrifthub-db171.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240353380355:android:9d0b1d25118d40b93ea636",
+        "android_client_info": {
+          "package_name": "com.example.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240353380355-r03mthqtki16c47sajl222ct04rq7bkt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7JiRi-Y9gwgVdNjL9yK8Ov5nhmYE9k2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240353380355-r03mthqtki16c47sajl222ct04rq7bkt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "240353380355-9vpin94h873i64eq4902kic0vk03abqp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
