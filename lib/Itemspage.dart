@@ -30,31 +30,8 @@ class _ItemsPageState extends State<ItemsPage> {
   @override
   void initState() {
     super.initState();
-    // _initializeDummyData();
   }
 
-  // Future<void> _initializeDummyData() async {
-  //   final random = Random();
-  //   List<String> communities = ['Community A', 'Community B', 'Community C'];
-  //   List<String> itemTypes = ['Electronics', 'Furniture', 'Clothing'];
-  //
-  //   for (int i = 0; i < 10; i++) {
-  //     String itemName = 'Item $i';
-  //     String description = 'This is a description for Item $i.';
-  //
-  //     await _firestore.collection('items').add({
-  //       'uid': 'user${random.nextInt(100)}',
-  //       'community': communities[random.nextInt(communities.length)],
-  //       'item_name': itemName,
-  //       'price': random.nextDouble() * 1000,
-  //       'item_address': 'Address $i',
-  //       'description': description,
-  //       'item_pic': 'https://via.placeholder.com/150', // This is a placeholder image URL
-  //       'item_type': itemTypes[random.nextInt(itemTypes.length)],
-  //       'timestamp': Timestamp.now()
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

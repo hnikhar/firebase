@@ -4,7 +4,7 @@ import 'itemspage.dart';
 import 'chatlistscreen.dart';
 import 'profilepage.dart';
 import 'searchpage.dart';
-import 'additempage.dart'; // 添加这一行，导入 AddItemPage
+import 'additempage.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = 'home_page';

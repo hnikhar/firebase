@@ -72,7 +72,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   'timestamp': FieldValue.serverTimestamp(),
                 });
 
-                // 导航至聊天详情页面
+                // go to chatdetailspage
                 Navigator.push(
                   context,
                   MaterialPageRoute(
