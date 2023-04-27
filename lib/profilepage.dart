@@ -23,7 +23,6 @@ class _ProfilePageState extends State<ProfilePage> {
     _image = AssetImage('assets/default_pic.png');
   }
 
-
   Future<void> _pickImage() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -37,14 +36,28 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      appBar: AppBar(
+        title: Text('User Information'),
+        leading: SizedBox(),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 24.0),
+            CircleAvatar(
+              radius: 50,
+              backgroundImage: _image,
+            ),
+            SizedBox(height: 16.0),
+            TextButton(
+              onPressed: _pickImage,
+              child: Text('Change Avatar'),
+            ),
+            StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
               stream: _db.collection('users').doc(_user?.uid).snapshots(),
               builder: (BuildContext context, AsyncSnapshot<
                   DocumentSnapshot<Map<String, dynamic>>> snapshot) {
@@ -52,84 +65,62 @@ class _ProfilePageState extends State<ProfilePage> {
                   return Center(child: CircularProgressIndicator());
                 }
                 final userData = snapshot.data!.data() as Map<String, dynamic>;
-                if (userData['avatar'] != null) {
-                  _image = NetworkImage(userData['avatar']);
-                }
-                return SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'User Information',
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 24.0),
+                    ListTile(
+                      title: Center(child: Text('UID')),
+                      subtitle: Center(child: Text(_auth.currentUser!.uid!)),
+                    ),
+                    SizedBox(height: 24.0),
+                    ListTile(
+                      title: Center(child: Text('Email')),
+                      subtitle: Center(child: Text(_auth.currentUser!.email!)),
+                    ),
+                    Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Name', textAlign: TextAlign.center),
+                          SizedBox(height: 8.0),
+                          Text(userData['name'], textAlign: TextAlign.center),
+                        ],
                       ),
-                      ListTile(
-                        title: Text('Email'),
-                        subtitle: Text(_auth.currentUser!.email!),
-                      ),
-                      ListTile(
-                        title: Text('UID'),
-                        subtitle: Text(_auth.currentUser!.uid),
-                      ),
-                      ListTile(
-                        title: Text('Name'),
-                        subtitle: Text(userData['name']),
-                      ),
-                      ListTile(
-                        title: Text('Address'),
-                        subtitle: Text(userData['address']),
-                      ),
-                      ListTile(
-                        title: Text('Phone'),
-                        subtitle: Text(userData['phone']),
-                      ),
-                      // show interest
-                      ListTile(
-                        title: Text('Interests'),
-                        subtitle: Text(userData['interests'].join(', ')),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundImage: _image,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: TextButton(
-                          onPressed: _pickImage,
-                          child: Text('Change Avatar'),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    ListTile(
+                      title: Center(child: Text('Address')),
+                      subtitle: Center(child: Text(userData['address'])),
+                    ),
+                    ListTile(
+                      title: Center(child:Text('Phone')),
+                      subtitle: Center(child:Text(userData['phone'])),
+                    ),
+                    // show interests
+                    ListTile(
+                      title: Center(child:Text('Interests')),
+                      subtitle: Center(child:Text(userData['interests'].join(', '))),
+                    ),
+                    SizedBox(height: 24.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        FirebaseAuth.instance.signOut();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          (route) => false,
+                        );
+                      },
+                      child: Text('Logout'),
+                    ),
+                    SizedBox(height: 24.0),
+                  ],
                 );
               },
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                      (route) => false,
-                );
-              },
-              child: Text('Logout'),
-            ),
-          ),
-          SizedBox(height: 16.0),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-
